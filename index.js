@@ -39,6 +39,13 @@ function search(event) {
 function showTemperature(response) {
   let temperatureNow = document.querySelector(".temperature-value");
   let temperature = Math.round(response.data.main.temp);
+  let descriptionElement = document.querySelector("#description");
+  let humidityElement = document.querySelector("#humidity");
+  let windElement = document.querySelector("#wind");
+
+  windElement.innerHTML = `${response.data.wind.speed}km/h`;
+  humidityElement.innerHTML = `${response.data.main.humidity}%`;
+  descriptionElement.innerHTML = response.data.weather[0].description;
   temperatureNow.innerHTML = `${temperature}`;
 }
 
