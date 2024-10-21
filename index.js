@@ -42,7 +42,13 @@ function showTemperature(response) {
   let descriptionElement = document.querySelector("#description");
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#wind");
-
+  if (temperature > 15) {
+    let icon = document.querySelector("#icon");
+    icon.innerHTML = "⛅";
+  } else {
+    let icon = document.querySelector("#icon");
+    icon.innerHTML = "☁️";
+  }
   windElement.innerHTML = `${response.data.wind.speed}km/h`;
   humidityElement.innerHTML = `${response.data.main.humidity}%`;
   descriptionElement.innerHTML = response.data.weather[0].description;
