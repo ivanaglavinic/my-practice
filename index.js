@@ -29,7 +29,7 @@ function search(event) {
   event.preventDefault();
   let searchInputElement = document.querySelector("#search-input");
   let cityElement = document.querySelector("#current-city");
-  let apiKey = "8ef4a64bf2b3f08b9f692e2febca0acb";
+  let apiKey = process.env.apiKey;
   let city = searchInputElement.value;
   cityElement.innerHTML = city;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
