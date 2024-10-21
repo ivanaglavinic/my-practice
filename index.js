@@ -31,7 +31,7 @@ function search(event) {
   event.preventDefault();
   let searchInputElement = document.querySelector("#search-input");
   let cityElement = document.querySelector("#current-city");
-  // let apiKey = process.env.apiKey;
+  let apiKey = process.env.apiKey;
   let city = searchInputElement.value;
   cityElement.innerHTML = city;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
