@@ -42,17 +42,17 @@ function showTemperature(response) {
   let descriptionElement = document.querySelector("#description");
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#wind");
-  if (temperature > 15) {
-    let icon = document.querySelector("#icon");
-    icon.innerHTML = "⛅";
-  } else {
-    let icon = document.querySelector("#icon");
-    icon.innerHTML = "☁️";
-  }
-  windElement.innerHTML = `${response.data.wind.speed}km/h`;
-  humidityElement.innerHTML = `${response.data.main.humidity}%`;
+  let iconCode = response.data.weather[0].icon;
+  let iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+  let getEmoji = document.querySelector(".app-icon");
+
+  getEmoji.src = iconUrl;
+  windElement.innerHTML = `${response.data.wind.speed} km/h`;
+  humidityElement.innerHTML = `${response.data.main.humidity} %`;
   descriptionElement.innerHTML = response.data.weather[0].description;
-  temperatureNow.innerHTML = `${temperature}`;
+  temperatureNow.innerHTML = `${temperature}°C`;
+
+  console.log(response.data.weather[0].icon);
 }
 
 let searchForm = document.querySelector("#search-form");

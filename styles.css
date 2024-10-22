@@ -75,12 +75,9 @@ main {
 .current-details strong {
   color: #f65282;
 }
-
-.icon {
-  font-size: 50px;
-  margin-top: 12px;
+.app-icon {
+  margin-bottom: 55px;
 }
-
 .current-temperature-icon {
   position: relative;
   top: -8px;
