@@ -57,6 +57,27 @@ function search(event) {
   alwaysCity(searchInputElement.value);
 }
 
+function displayForecast() {
+  let shortDays = ["Tue", "Wed", "Thu", "Fri", "Sat"];
+  let forecastHtml = "";
+  shortDays.forEach(function (shortDay) {
+    forecastHtml =
+      forecastHtml +
+      `
+<div class="weather-forecast-day">
+  <div class="weather-forecast-date">${shortDay}</div>
+  <div class="weather-forecast-icon">⛅</div>
+  <div class="weather-forecast-temperatures">
+    <div class="weather-forecast-temperature"><strong>14°C</strong></div>
+    <div class="weather-forecast-temperature">18°C</div>
+  </div>
+</div>
+`;
+  });
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = forecastHtml;
+}
+
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", search);
 
@@ -66,3 +87,4 @@ let currentDate = new Date();
 currentDateELement.innerHTML = formatDate(currentDate);
 
 alwaysCity("Paris");
+displayForecast();
