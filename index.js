@@ -25,18 +25,8 @@ function formatDate(date) {
   return `${formattedDay} ${hours}:${minutes}`;
 }
 
-function search(event) {
-  event.preventDefault();
-  let searchInputElement = document.querySelector("#search-input");
-  let cityElement = document.querySelector("#current-city");
-  let apiKey = "8ef4a64bf2b3f08b9f692e2febca0acb";
-  let city = searchInputElement.value;
-  cityElement.innerHTML = city;
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(showTemperature);
-}
-
 function showTemperature(response) {
+  let cityElement = document.querySelector("#current-city");
   let temperatureNow = document.querySelector(".temperature-value");
   let temperature = Math.round(response.data.main.temp);
   let descriptionElement = document.querySelector("#description");
@@ -46,13 +36,25 @@ function showTemperature(response) {
   let iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
   let getEmoji = document.querySelector(".app-icon");
 
+  cityElement.innerHTML = response.data.name;
   getEmoji.src = iconUrl;
   windElement.innerHTML = `${response.data.wind.speed} km/h`;
   humidityElement.innerHTML = `${response.data.main.humidity} %`;
   descriptionElement.innerHTML = response.data.weather[0].description;
   temperatureNow.innerHTML = `${temperature}°C`;
+}
 
-  console.log(response.data.weather[0].icon);
+function alwaysCity(city) {
+  let apiKey = "8ef4a64bf2b3f08b9f692e2febca0acb";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showTemperature);
+}
+
+function search(event) {
+  event.preventDefault();
+  let searchInputElement = document.querySelector("#search-input");
+
+  alwaysCity(searchInputElement.value);
 }
 
 let searchForm = document.querySelector("#search-form");
@@ -63,4 +65,4 @@ let currentDate = new Date();
 
 currentDateELement.innerHTML = formatDate(currentDate);
 
-search("Paris");
+alwaysCity("Paris");
