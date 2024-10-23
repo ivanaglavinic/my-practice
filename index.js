@@ -42,6 +42,8 @@ function showTemperature(response) {
   humidityElement.innerHTML = `${response.data.main.humidity} %`;
   descriptionElement.innerHTML = response.data.weather[0].description;
   temperatureNow.innerHTML = `${temperature}°C`;
+
+  getForecast(response.data.name);
 }
 
 function alwaysCity(city) {
@@ -64,7 +66,7 @@ function getForecast(city) {
 }
 
 function displayForecast(response) {
-  console.log(response.data);
+  console.log(response.data.list);
 
   let shortDays = ["Tue", "Wed", "Thu", "Fri", "Sat"];
   let forecastHtml = "";
@@ -95,4 +97,3 @@ let currentDate = new Date();
 currentDateELement.innerHTML = formatDate(currentDate);
 
 alwaysCity("Paris");
-getForecast("Paris");
