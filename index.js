@@ -57,7 +57,15 @@ function search(event) {
   alwaysCity(searchInputElement.value);
 }
 
-function displayForecast() {
+function getForecast(city) {
+  let apiKey = "8ef4a64bf2b3f08b9f692e2febca0acb";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+  axios(apiUrl).then(displayForecast);
+}
+
+function displayForecast(response) {
+  console.log(response.data);
+
   let shortDays = ["Tue", "Wed", "Thu", "Fri", "Sat"];
   let forecastHtml = "";
   shortDays.forEach(function (shortDay) {
@@ -87,4 +95,4 @@ let currentDate = new Date();
 currentDateELement.innerHTML = formatDate(currentDate);
 
 alwaysCity("Paris");
-displayForecast();
+getForecast("Paris");
