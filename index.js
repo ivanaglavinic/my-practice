@@ -59,6 +59,13 @@ function search(event) {
   alwaysCity(searchInputElement.value);
 }
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[date.getDay()];
+}
+
 function getForecast(city) {
   let apiKey = "8ef4a64bf2b3f08b9f692e2febca0acb";
   let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
@@ -68,21 +75,35 @@ function getForecast(city) {
 function displayForecast(response) {
   console.log(response.data.list);
 
-  let shortDays = ["Tue", "Wed", "Thu", "Fri", "Sat"];
+  let forecasticonCode =
+    response.data.list[(5, 13, 21, 29, 37)].weather[0].icon;
+  let forecasticonUrl = `http://openweathermap.org/img/wn/${forecasticonCode}@2x.png`;
   let forecastHtml = "";
-  shortDays.forEach(function (shortDay) {
-    forecastHtml =
-      forecastHtml +
-      `
+  response.data.list.forEach(function (shortDay, index) {
+    if (
+      index === 5 ||
+      index === 13 ||
+      index === 21 ||
+      index === 29 ||
+      index === 37
+    ) {
+      forecastHtml =
+        forecastHtml +
+        `
 <div class="weather-forecast-day">
-  <div class="weather-forecast-date">${shortDay}</div>
-  <div class="weather-forecast-icon">⛅</div>
+  <div class="weather-forecast-date">${formatDay(shortDay.dt)}</div>
+  <img src= "${forecasticonUrl}" class="weather-forecast-icon"/>
   <div class="weather-forecast-temperatures">
-    <div class="weather-forecast-temperature"><strong>14°C</strong></div>
-    <div class="weather-forecast-temperature">18°C</div>
+    <div class="weather-forecast-temperature"><strong>${Math.round(
+      shortDay.main.temp_max
+    )}°</strong></div>
+    <div class="weather-forecast-temperature">${Math.round(
+      shortDay.main.temp_min
+    )}°</div>
   </div>
 </div>
 `;
+    }
   });
   let forecastElement = document.querySelector("#forecast");
   forecastElement.innerHTML = forecastHtml;
