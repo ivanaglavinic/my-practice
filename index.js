@@ -117,4 +117,4 @@ let currentDate = new Date();
 
 currentDateELement.innerHTML = formatDate(currentDate);
 
-alwaysCity("Paris");
+alwaysCity("Bruxelles");
